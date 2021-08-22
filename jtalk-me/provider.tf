@@ -12,6 +12,10 @@ terraform {
       source  = "hashicorp/helm"
       version = "~> 2.2"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 2.0"
+    }
   }
 
   backend "s3" {
@@ -49,3 +53,12 @@ provider "helm" {
     }
   }
 }
+
+variable "cloudflare_account_id" {}
+variable "cloudflare_api_token" {}
+
+provider "cloudflare" {
+  account_id = var.cloudflare_account_id
+  api_token  = var.cloudflare_api_token
+}
+
