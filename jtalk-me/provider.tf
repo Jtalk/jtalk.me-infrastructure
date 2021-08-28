@@ -32,13 +32,12 @@ terraform {
   required_version = ">= 1.0.4"
 }
 
-variable "do_token" {}
-
 provider "aws" {
   profile = "jtalk.me-terraform"
   region  = "eu-west-2"
 }
 
+variable "do_token" {}
 provider "digitalocean" {
   token = var.do_token
 }
@@ -73,7 +72,6 @@ provider "kubernetes" {
 
 variable "cloudflare_account_id" {}
 variable "cloudflare_api_token" {}
-
 provider "cloudflare" {
   account_id = var.cloudflare_account_id
   api_token  = var.cloudflare_api_token
