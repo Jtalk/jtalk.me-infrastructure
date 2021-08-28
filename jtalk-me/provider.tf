@@ -20,6 +20,14 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 2.0"
     }
+    mongodbatlas = {
+      source  = "mongodb/mongodbatlas"
+      version = "~> 1.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.1"
+    }
   }
 
   backend "s3" {
@@ -77,3 +85,9 @@ provider "cloudflare" {
   api_token  = var.cloudflare_api_token
 }
 
+variable "atlas_key" {}
+variable "atlas_key_secret" {}
+provider "mongodbatlas" {
+  public_key  = var.atlas_key
+  private_key = var.atlas_key_secret
+}

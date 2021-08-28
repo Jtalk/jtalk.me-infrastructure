@@ -1,3 +1,7 @@
+variable "atlas_org_id" {
+  type        = string
+  description = "ID of the existing MongoDB Atlas organisation"
+}
 
 variable "existing_cluster_ip_temp" {
   description = "Store existing cluster's IP while we're migrating to the terraform-managed one"
