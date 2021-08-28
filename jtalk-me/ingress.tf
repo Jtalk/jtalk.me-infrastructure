@@ -33,3 +33,23 @@ locals {
   ingress_controller_suffix = jsondecode(helm_release.ingress_nginx.metadata.0.values)["controller"]["name"]
   ingress_controller_name   = "${local.ingress_name}-${local.ingress_controller_suffix}"
 }
+
+resource "helm_release" "cert_manager" {
+  name       = "cert-manager"
+  repository = "https://charts.jetstack.io"
+  chart      = "cert-manager"
+
+  namespace        = "cert-manager"
+  create_namespace = true
+
+  atomic  = true
+  timeout = 60
+
+  cleanup_on_fail = true
+  max_history     = 2
+
+  set {
+    name  = "installCRDs"
+    value = true
+  }
+}
