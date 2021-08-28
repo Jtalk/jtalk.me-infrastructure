@@ -12,7 +12,8 @@ resource "digitalocean_kubernetes_cluster" "main_cluster" {
   lifecycle {
     prevent_destroy = true
     ignore_changes = [
-      version
+      version,
+      updated_at
     ]
   }
 
