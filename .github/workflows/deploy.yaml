@@ -15,6 +15,10 @@ jobs:
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.4
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_TOKEN }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -27,19 +31,19 @@ jobs:
 
       - name: Terraform format
         working-directory: jtalk-me
-        run: terraform fmt -check
+        run: terraform fmt -check -no-color
         continue-on-error: true
 
       - name: Terraform deploy
         working-directory: jtalk-me
         run: |
-          terraform init
+          terraform init -no-color
           terraform validate -no-color
           terraform plan \
             -input=false \
             -var 'do_token=${{ secrets.DO_TOKEN }}' \
             -var 'cloudflare_account_id=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' \
-            -var 'cloudflare_api_token=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' \
+            -var 'cloudflare_api_token=${{ secrets.CLOUDFLARE_API_TOKEN }}' \
             -var 'atlas_key=${{ secrets.ATLAS_KEY }}' \
             -var 'atlas_key_secret=${{ secrets.ATLAS_KEY_SECRET }}' \
             -no-color
