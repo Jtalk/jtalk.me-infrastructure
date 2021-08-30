@@ -1,0 +1,36 @@
+name: Trigger version update for a service
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Name of the service to update version for
+        required: true
+      version:
+        description: The versions string to deploy the service with. Usually a commit SHA
+        required: true
+      callback:
+        description: The workflow name to trigger upon successful completion
+        required: false
+
+env:
+  IGNORE: true
+
+jobs:
+  update-version:
+    name: Update the relevant version in the repository
+    runs-on: ubuntu-latest
+    env:
+      VERSIONS_FILE_PATH: ./jtalk-me/versions.auto.tfvars
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          ref: refs/heads/master
+      - name: Update the file
+        run: |
+          sed -Ei '' '/^${{ github.event.inputs.name }}_version /s/"[A-Za-z0-9]+"/"${{ github.event.inputs.version }}"/' "$VERSIONS_FILE_PATH"
+      - name: Commit the updated file back
+        run: |
+          git add "$VERSIONS_FILE_PATH"
+          git commit -m 'Updating ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
+          git push origin master
