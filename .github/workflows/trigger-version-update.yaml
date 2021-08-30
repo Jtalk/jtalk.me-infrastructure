@@ -36,4 +36,4 @@ jobs:
           git config --global user.name "Github Actions Bot"
           git add ${{ env.VERSIONS_FILE_PATH }}
           git commit -m '[Workflow] Updating ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
-          git push origin master
+          git push origin ${{ github.ref }}
