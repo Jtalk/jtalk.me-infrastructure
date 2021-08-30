@@ -31,24 +31,21 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "jtalk.me-terraform-state"
-    key     = "state"
-    profile = "jtalk.me-terraform"
-    region  = "eu-west-2"
+    bucket = "jtalk.me-terraform-state"
+    key    = "state"
+    region = "eu-west-2"
   }
 
   required_version = ">= 1.0.4"
 }
 
 provider "aws" {
-  profile = "jtalk.me-terraform"
-  region  = "eu-west-2"
+  region = "eu-west-2"
 }
 
 provider "aws" {
-  profile = "jtalk.me-terraform"
-  region  = "eu-north-1"
-  alias   = "aws_backups"
+  region = "eu-north-1"
+  alias  = "aws_backups"
 }
 
 variable "do_token" {}
