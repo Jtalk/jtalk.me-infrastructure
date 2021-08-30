@@ -1,0 +1,37 @@
+name: Deploy the infrastructure
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  terraform-apply:
+    name: Apply the new infrastructure
+    runs-on: ubuntu-latest
+    concurrency: terraform-apply
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.4
+
+      - name: Terraform format
+        working-directory: jtalk-me
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform deploy
+        working-directory: jtalk-me
+        run: |
+          terraform init
+          terraform validate -no-color
+          terraform plan -no-color \
+            -var 'do_token=${{ secrets.DO_TOKEN }}' \
+            -var 'cloudflare_account_id=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}'
+            -var 'cloudflare_api_token=${{ CLOUDFLARE_ACCOUNT_ID }}'
+            -var 'atlas_key=${{ ATLAS_KEY }}'
+            -var 'atlas_key_secret=${{ ATLAS_KEY_SECRET }}'
+          # terraform apply -no-color \
+          #   -auto-approve \
+          #   -input=false \
