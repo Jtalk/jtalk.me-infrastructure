@@ -23,6 +23,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
           role-to-assume: terraform
+          role-duration-seconds: 1800
 
       - name: Terraform format
         working-directory: jtalk-me
