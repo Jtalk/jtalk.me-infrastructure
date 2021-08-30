@@ -37,7 +37,7 @@ jobs:
           git config --global user.email "github-bot@jtalk.me"
           git config --global user.name "Github Actions Bot"
           git add ${{ env.VERSIONS_FILE_PATH }}
-          git commit -m '[Workflow] Updating ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
+          git commit --allow-empty -m '[Workflow] Updating ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
           git push
       - name: Store commit hash
         id: store
