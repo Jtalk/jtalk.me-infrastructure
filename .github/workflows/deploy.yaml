@@ -5,8 +5,8 @@ on:
     branches:
       - master
     paths:
-      - .github/workflows/deploy.yaml
-      - jtalk-me/**
+      - ".github/workflows/deploy.yaml"
+      - "jtalk-me/**"
 
 jobs:
   terraform-apply:
