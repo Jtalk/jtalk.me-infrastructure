@@ -52,11 +52,11 @@ jobs:
     needs:
       - update-version
     env:
-      TARGET_SHA: ${{ needs['update-version'].output.sha }}
+      TARGET_SHA: ${{ needs['update-version'].outputs.sha }}
     steps:
       - name: Show commit SHA
         run: |
-          echo "Waiting for pipeline on to complete for ${{ needs['update-version'].output.sha }}"
+          echo "Waiting for pipeline on to complete for ${{ env.TARGET_SHA }}"
       - name: Waiting for the deployment pipeline to complete
         uses: uplift-ltd/wait-for-workflow-run-action@v1
         with:
