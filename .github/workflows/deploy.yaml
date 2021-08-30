@@ -29,9 +29,9 @@ jobs:
           terraform plan -no-color \
             -var 'do_token=${{ secrets.DO_TOKEN }}' \
             -var 'cloudflare_account_id=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}'
-            -var 'cloudflare_api_token=${{ CLOUDFLARE_ACCOUNT_ID }}'
-            -var 'atlas_key=${{ ATLAS_KEY }}'
-            -var 'atlas_key_secret=${{ ATLAS_KEY_SECRET }}'
+            -var 'cloudflare_api_token=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}'
+            -var 'atlas_key=${{ secrets.ATLAS_KEY }}'
+            -var 'atlas_key_secret=${{ secrets.ATLAS_KEY_SECRET }}'
           # terraform apply -no-color \
           #   -auto-approve \
           #   -input=false \
