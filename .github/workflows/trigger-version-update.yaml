@@ -28,8 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          # Force Github to trigger pipeline on push
-          token: ${{ secrets.GH_PUSH_TOKEN }}
           ref: refs/heads/master
       - name: Update the file
         run: |
@@ -56,12 +54,13 @@ jobs:
     env:
       TARGET_SHA: ${{ needs['update-version'].outputs.sha }}
     steps:
-      - name: Show commit SHA
-        run: |
-          echo "Waiting for pipeline on to complete for ${{ env.TARGET_SHA }}"
-      - name: Waiting for the deployment pipeline to complete
-        uses: uplift-ltd/wait-for-workflow-run-action@v1
+      - name: Trigger deploy pipeline
+        id: trigger-step
+        uses: aurelien-baudet/workflow-dispatch@v2
         with:
+          workflow: Deploy the infrastructure
           token: ${{ secrets.GH_PUSH_TOKEN }}
-          sha: ${{ env.TARGET_SHA }}
-          cancelWorkflow: true
+          ref: ${{ env.TARGET_SHA }}
+          wait-for-completion: true
+          wait-for-completion-timeout: 10m
+          wait-for-completion-interval: 45s
