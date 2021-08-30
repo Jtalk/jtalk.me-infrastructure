@@ -32,6 +32,8 @@ jobs:
           sed -E -i '/^${{ github.event.inputs.name }}_version /s/"[A-Za-z0-9]+"/"${{ github.event.inputs.version }}"/' ${{ env.VERSIONS_FILE_PATH }}
       - name: Commit the updated file back
         run: |
+          git config --global user.email "github-bot@jtalk.me"
+          git config --global user.name "Github Actions Bot"
           git add ${{ env.VERSIONS_FILE_PATH }}
           git commit -m '[Workflow] Updating ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
           git push origin master
