@@ -19,3 +19,18 @@ variable "cloud_ipv4" {
 variable "cloud_ipv6" {
   description = "An IPv6 address of the cloud instance (not managed by terraform)"
 }
+
+variable "jtalkme_bugsnag_key" {
+  type        = string
+  description = "A key for our UI error reporting service (Bugsnag)"
+}
+
+variable "jtalkme_version" {
+  type        = string
+  description = "Version (git hash) of the jtalk.me website to deploy"
+}
+
+variable "jtalkme_staging_version" {
+  type        = string
+  description = "Version (git hash) of the jtalk.me website to deploy"
+}

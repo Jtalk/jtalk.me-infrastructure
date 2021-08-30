@@ -82,7 +82,6 @@ resource "mongodbatlas_database_user" "app_user" {
   }
 
   lifecycle {
-    // Because Atlas can't handle passwords properly
     prevent_destroy = true
   }
 }
@@ -90,4 +89,8 @@ resource "mongodbatlas_database_user" "app_user" {
 resource "mongodbatlas_project_ip_access_list" "atlas_ip_whitelist" {
   project_id = mongodbatlas_project.atlas_project.id
   cidr_block = "0.0.0.0/0"
+}
+
+locals {
+  atlas_cluster_url_parts = split("://", mongodbatlas_cluster.main_mongodb.srv_address)
 }

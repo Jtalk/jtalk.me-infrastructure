@@ -45,6 +45,12 @@ provider "aws" {
   region  = "eu-west-2"
 }
 
+provider "aws" {
+  profile = "jtalk.me-terraform"
+  region  = "eu-north-1"
+  alias   = "aws_backups"
+}
+
 variable "do_token" {}
 provider "digitalocean" {
   token = var.do_token

@@ -76,6 +76,7 @@ data "aws_iam_policy_document" "terraform_policy_allow_create_destroy_document" 
       "ecr:Create*",
       "ecs:Create*",
       "eks:Create*",
+      "iam:Create*",
 
       "ec2:Destroy*",
       "s3:Destroy*",
@@ -88,6 +89,35 @@ data "aws_iam_policy_document" "terraform_policy_allow_create_destroy_document" 
       "ecr:List*",
       "ecs:List*",
       "eks:List*",
+      "iam:List*",
+
+      "ec2:Get*",
+      "s3:Get*",
+      "ecr:Get*",
+      "ecs:Get*",
+      "eks:Get*",
+      "iam:Get*",
+
+      "ec2:Put*",
+      "s3:Put*",
+      "ecr:Put*",
+      "ecs:Put*",
+      "eks:Put*",
+      "iam:Put*",
+
+      "ec2:Delete*",
+      "s3:Delete*",
+      "ecr:Delete*",
+      "ecs:Delete*",
+      "eks:Delete*",
+      "iam:Delete*",
+
+      "ec2:Tag*",
+      "s3:Tag*",
+      "ecr:Tag*",
+      "ecs:Tag*",
+      "eks:Tag*",
+      "iam:Tag*",
     ]
     effect = "Allow"
     resources = [
