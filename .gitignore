@@ -9,3 +9,4 @@ override.tf.json
 
 .terraformrc
 terraform.rc
+private.secrets
