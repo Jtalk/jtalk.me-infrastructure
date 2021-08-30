@@ -51,7 +51,7 @@ jobs:
     needs:
       - update-version
     env:
-      TARGET_SHA: ${{ needs["update-version"].output.sha }}
+      TARGET_SHA: ${{ needs['update-version'].output.sha }}
     steps:
       - name: Show commit SHA
         run: |
