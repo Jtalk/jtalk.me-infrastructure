@@ -60,7 +60,7 @@ jobs:
         with:
           workflow: Deploy the infrastructure
           token: ${{ secrets.GH_PUSH_TOKEN }}
-          ref: ${{ env.TARGET_SHA }}
+          ref: master
           wait-for-completion: true
           wait-for-completion-timeout: 10m
           wait-for-completion-interval: 45s
