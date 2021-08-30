@@ -23,6 +23,8 @@ jobs:
     concurrency: app-version-${{ github.event.inputs.name }}
     env:
       VERSIONS_FILE_PATH: ./jtalk-me/versions.auto.tfvars
+    outputs:
+      sha: ${{ steps.store.outputs.sha }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -37,3 +39,25 @@ jobs:
           git add ${{ env.VERSIONS_FILE_PATH }}
           git commit -m '[Workflow] Updating ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
           git push
+      - name: Store commit hash
+        id: store
+        run: |
+          SHA=$(git rev-parse HEAD)
+          echo "::set-output name=sha::$SHA"
+
+  wait-deploy:
+    name: Wait for the deploy pipeline to complete
+    runs-on: ubuntu-latest
+    needs:
+      - update-version
+    env:
+      TARGET_SHA: ${{ needs.update-version.output.sha }}
+    steps:
+      - name: Show commit SHA
+        run: |
+          echo "Waiting for pipeline on to complete for ${{ env.TARGET_SHA }}"
+      - name: Waiting for the deployment pipeline to complete
+        uses: uplift-ltd/wait-for-workflow-run-action@v1
+        with:
+          sha: ${{ env.TARGET_SHA }}
+          cancelWorkflow: true
