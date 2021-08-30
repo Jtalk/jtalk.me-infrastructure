@@ -39,7 +39,8 @@ jobs:
         run: |
           terraform init -no-color
           terraform validate -no-color
-          terraform plan \
+          terraform apply \
+            -auto-approve \
             -input=false \
             -var 'do_token=${{ secrets.DO_TOKEN }}' \
             -var 'cloudflare_account_id=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' \
@@ -47,7 +48,3 @@ jobs:
             -var 'atlas_key=${{ secrets.ATLAS_KEY }}' \
             -var 'atlas_key_secret=${{ secrets.ATLAS_KEY_SECRET }}' \
             -no-color
-          # terraform apply \
-          #   -auto-approve \
-          #   -input=false \
-          #   -no-color
