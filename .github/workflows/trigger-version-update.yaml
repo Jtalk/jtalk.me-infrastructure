@@ -62,5 +62,6 @@ jobs:
       - name: Waiting for the deployment pipeline to complete
         uses: uplift-ltd/wait-for-workflow-run-action@v1
         with:
+          token: ${{ secrets.GH_PUSH_TOKEN }}
           sha: ${{ env.TARGET_SHA }}
           cancelWorkflow: true
