@@ -28,6 +28,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          # Force Github to trigger pipeline on push
+          token: ${{ secrets.GH_PUSH_TOKEN }}
           ref: refs/heads/master
       - name: Update the file
         run: |
@@ -43,7 +45,7 @@ jobs:
         id: store
         run: |
           export SHA=$(git rev-parse HEAD)
-          echo "Output SHA is $SHA"
+          echo "Created new commit $SHA"
           echo "::set-output name=sha::$SHA"
 
   wait-deploy:
