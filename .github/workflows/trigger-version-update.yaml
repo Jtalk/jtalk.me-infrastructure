@@ -42,7 +42,8 @@ jobs:
       - name: Store commit hash
         id: store
         run: |
-          SHA=$(git rev-parse HEAD)
+          export SHA=$(git rev-parse HEAD)
+          echo "Output SHA is $SHA"
           echo "::set-output name=sha::$SHA"
 
   wait-deploy:
