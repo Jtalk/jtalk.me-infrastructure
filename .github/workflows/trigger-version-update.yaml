@@ -63,4 +63,4 @@ jobs:
           ref: master
           wait-for-completion: true
           wait-for-completion-timeout: 10m
-          wait-for-completion-interval: 45s
+          wait-for-completion-interval: 30s
