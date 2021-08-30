@@ -20,6 +20,7 @@ jobs:
   update-version:
     name: Update the relevant version in the repository
     runs-on: ubuntu-latest
+    concurrency: app-version-${{ github.event.inputs.name }}
     env:
       VERSIONS_FILE_PATH: ./jtalk-me/versions.auto.tfvars
     steps:
