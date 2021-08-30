@@ -29,7 +29,7 @@ jobs:
           ref: refs/heads/master
       - name: Update the file
         run: |
-          sed -Ei '' '/^${{ github.event.inputs.name }}_version /s/"[A-Za-z0-9]+"/"${{ github.event.inputs.version }}"/' ${{ env.VERSIONS_FILE_PATH }}
+          sed -E -i bak '/^${{ github.event.inputs.name }}_version /s/"[A-Za-z0-9]+"/"${{ github.event.inputs.version }}"/' ${{ env.VERSIONS_FILE_PATH }}
       - name: Commit the updated file back
         run: |
           git add ${{ env.VERSIONS_FILE_PATH }}
