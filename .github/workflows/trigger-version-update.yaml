@@ -24,7 +24,7 @@ jobs:
     env:
       VERSIONS_FILE_PATH: ./jtalk-me/versions.auto.tfvars
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           ref: refs/heads/master
       - name: Update the file
@@ -36,5 +36,4 @@ jobs:
           git config --global user.name "Github Actions Bot"
           git add ${{ env.VERSIONS_FILE_PATH }}
           git commit -m '[Workflow] Updating ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
-          git show-ref
-          git push master
+          git push
