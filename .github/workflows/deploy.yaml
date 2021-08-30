@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+    paths:
+      - .github/workflows/deploy.yaml
+      - jtalk-me/**
 
 jobs:
   terraform-apply:
