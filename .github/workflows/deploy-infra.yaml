@@ -51,4 +51,6 @@ jobs:
             -var 'cloudflare_api_token=${{ secrets.CLOUDFLARE_API_TOKEN }}' \
             -var 'atlas_key=${{ secrets.ATLAS_KEY }}' \
             -var 'atlas_key_secret=${{ secrets.ATLAS_KEY_SECRET }}' \
+            -var 'acme_email=${{ secrets.ACME_EMAIL }}' \
+            -var 'acme_key_base64=${{ secrets.ACME_KEY_BASE64 }}' \
             -no-color

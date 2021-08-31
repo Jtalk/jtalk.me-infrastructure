@@ -73,6 +73,9 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(
     digitalocean_kubernetes_cluster.main_cluster.kube_config[0].cluster_ca_certificate
   )
+  experiments {
+    manifest_resource = true
+  }
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "doctl"

@@ -34,12 +34,16 @@ locals {
   ingress_controller_name   = "${local.ingress_name}-${local.ingress_controller_suffix}"
 }
 
+locals {
+  cert_manager_ns    = "cert-manager"
+  cert_issuer_secret = "acme-key"
+}
 resource "helm_release" "cert_manager" {
   name       = "cert-manager"
   repository = "https://charts.jetstack.io"
   chart      = "cert-manager"
 
-  namespace        = "cert-manager"
+  namespace        = local.cert_manager_ns
   create_namespace = true
 
   atomic  = true
@@ -51,5 +55,46 @@ resource "helm_release" "cert_manager" {
   set {
     name  = "installCRDs"
     value = true
+  }
+}
+
+resource "kubernetes_secret" "acme_key" {
+  metadata {
+    name      = local.cert_issuer_secret
+    namespace = local.cert_manager_ns
+  }
+
+  binary_data = {
+    "tls.key" = var.acme_key_base64
+  }
+}
+
+resource "kubernetes_manifest" "acme_cluster_issuer" {
+  depends_on = [
+    helm_release.cert_manager,
+    kubernetes_secret.acme_key,
+  ]
+  manifest = {
+    "apiVersion" = "cert-manager.io/v1"
+    "kind"       = "ClusterIssuer"
+    "metadata" = {
+      "name" = "letsencrypt"
+    }
+    "spec" = {
+      "acme" = {
+        "email"  = var.acme_email
+        "server" = "https://acme-v02.api.letsencrypt.org/directory"
+        "privateKeySecretRef" = {
+          "name" = local.cert_issuer_secret
+        }
+        "solvers" = [{
+          "http01" = {
+            "ingress" = {
+              "class" = "nginx"
+            }
+          }
+        }]
+      }
+    }
   }
 }

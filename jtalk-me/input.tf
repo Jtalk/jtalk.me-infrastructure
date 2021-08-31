@@ -16,6 +16,14 @@ variable "cloud_ipv6" {
   description = "An IPv6 address of the cloud instance (not managed by terraform)"
 }
 
+variable "acme_email" {
+  description = "An email to which Letsencrypt will send notifications"
+}
+
+variable "acme_key_base64" {
+  description = "The secret key used for domain signing requests with Letsencrypt"
+}
+
 variable "jtalkme_bugsnag_key" {
   type        = string
   description = "A key for our UI error reporting service (Bugsnag)"
