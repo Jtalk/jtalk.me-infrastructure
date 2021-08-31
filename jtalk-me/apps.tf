@@ -19,3 +19,10 @@ module "jtalkme_staging" {
   database_url = "${local.atlas_cluster_url_parts.0}://${mongodbatlas_database_user.app_user["home-staging"].username}:${mongodbatlas_database_user.app_user["home-staging"].password}@${local.atlas_cluster_url_parts.1}/home-staging"
   app_version  = var.jtalkme_staging_version
 }
+
+module "digito" {
+  source      = "./modules/digito"
+  namespace   = "digito"
+  domains     = [for d in var.domains : "digito.${d}"]
+  app_version = var.digito_version
+}

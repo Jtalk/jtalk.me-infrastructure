@@ -34,3 +34,8 @@ variable "jtalkme_staging_version" {
   type        = string
   description = "Version (git hash) of the jtalk.me website to deploy"
 }
+
+variable "digito_version" {
+  type        = string
+  description = "Version (git hash) of the digito.jtalk.me website to deploy"
+}
