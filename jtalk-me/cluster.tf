@@ -1,7 +1,3 @@
-locals {
-  cluster_ip = var.existing_cluster_ip_temp
-}
-
 resource "digitalocean_kubernetes_cluster" "main_cluster" {
   name          = "k8s-jtalk-tf"
   region        = "lon1"

@@ -7,4 +7,5 @@ data "kubernetes_service" "ingress_nginx" {
 
 locals {
   loadbalancer_ip = data.kubernetes_service.ingress_nginx.status.0.load_balancer.0.ingress.0.ip
+  cluster_ip      = local.loadbalancer_ip
 }
