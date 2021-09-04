@@ -1,5 +1,5 @@
 resource "digitalocean_kubernetes_cluster" "main_cluster" {
-  name          = "k8s-jtalk-tf"
+  name          = "k8s-jtalk"
   region        = "lon1"
   version       = "1.21.2-do.2"
   auto_upgrade  = true
