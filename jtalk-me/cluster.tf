@@ -26,3 +26,15 @@ resource "digitalocean_kubernetes_cluster" "main_cluster" {
     day        = "any"
   }
 }
+
+resource "helm_release" "metrics_server" {
+  name       = "metrics-server"
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "metrics-server"
+
+  atomic  = true
+  timeout = 300
+
+  cleanup_on_fail = true
+  max_history     = 2
+}
