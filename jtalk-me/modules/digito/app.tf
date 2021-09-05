@@ -8,7 +8,7 @@ resource "helm_release" "digito" {
   create_namespace = true
 
   atomic        = true
-  timeout       = 600
+  timeout       = 900
   wait_for_jobs = true
 
   cleanup_on_fail = true
