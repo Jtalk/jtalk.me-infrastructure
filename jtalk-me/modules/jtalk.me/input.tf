@@ -5,7 +5,7 @@ variable "namespace" {
 
 variable "domains" {
   type        = list(string)
-  description = "The domains this app will be available on. www is added automatically"
+  description = "The domains this app will be available on"
 }
 
 variable "app_version" {

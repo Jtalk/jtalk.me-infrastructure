@@ -40,14 +40,6 @@ resource "cloudflare_record" "caa" {
   }
 }
 
-resource "cloudflare_record" "www" {
-  zone_id = cloudflare_zone.root.id
-  name    = "www"
-  type    = "CNAME"
-  value   = cloudflare_zone.root.zone
-  proxied = true
-}
-
 /*********************************************
 ******************** APPS ********************
 *********************************************/

@@ -2,7 +2,7 @@
 module "jtalkme_live" {
   source         = "./modules/jtalk.me"
   namespace      = "home"
-  domains        = flatten([for d in var.domains : [d, "www.${d}"]])
+  domains        = var.domains
   database_url   = "${local.atlas_cluster_url_parts.0}://${mongodbatlas_database_user.app_user["home"].username}:${mongodbatlas_database_user.app_user["home"].password}@${local.atlas_cluster_url_parts.1}/home"
   backup_bucket  = "${aws_s3_bucket.jtalkme_backup.bucket}/new"
   aws_key_id     = aws_iam_access_key.jtalkme_backup.id
