@@ -5,12 +5,30 @@ resource "cloudflare_zone" "root" {
   type   = "full"
 }
 
+resource "cloudflare_zone_settings_override" "settings" {
+  zone_id = cloudflare_zone.root.id
+  settings {
+    ssl = "strict"
+  }
+}
+
 resource "cloudflare_record" "root" {
   zone_id = cloudflare_zone.root.id
   name    = cloudflare_zone.root.zone
   type    = "A"
   value   = var.root_ip
   proxied = true
+}
+
+resource "cloudflare_record" "caa" {
+  zone_id = cloudflare_zone.root.id
+  name    = cloudflare_zone.root.zone
+  type    = "CAA"
+  data = {
+    flags = "0"
+    value = "letsencrypt.org"
+    tag   = "issue"
+  }
 }
 
 resource "cloudflare_record" "www" {
@@ -97,5 +115,12 @@ resource "cloudflare_record" "dmarc" {
   zone_id = cloudflare_zone.root.id
   name    = "_dmarc"
   type    = "TXT"
-  value   = "v=DMARC1; p=none; rua=mailto:me+dmarc-rua@${cloudflare_zone.root.zone}; ruf=mailto:me+dmarc-ruf@${cloudflare_zone.root.zone}; fo=1; adkim=s; aspf=s"
+  value   = "v=DMARC1; p=quarantine; rua=mailto:me+dmarc-rua@${cloudflare_zone.root.zone}; ruf=mailto:me+dmarc-ruf@${cloudflare_zone.root.zone}; fo=1; adkim=s; aspf=s"
+}
+
+resource "cloudflare_record" "smtp_tls_rpt" {
+  zone_id = cloudflare_zone.root.id
+  name    = "_smtp._tls"
+  type    = "TXT"
+  value   = "v=TLSRPTv1; rua=mailto:me+smtp-tls-rpt@${cloudflare_zone.root.zone}"
 }
