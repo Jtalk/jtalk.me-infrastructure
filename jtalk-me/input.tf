@@ -8,6 +8,11 @@ variable "domains" {
   description = "Domains to set up DNS for"
 }
 
+variable "cloud_domain" {
+  type        = string
+  description = "Domain to deploy Nextcloud to"
+}
+
 variable "cloud_ipv4" {
   description = "An IPv4 address of the cloud instance (not managed by terraform)"
 }

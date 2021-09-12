@@ -4,6 +4,7 @@ domains = [
   "jtalk.me",
   "jtalk.uk",
 ]
+cloud_domain = "jtalk.cloud"
 
 jtalkme_bugsnag_key = "899f8865a22e37b078415c92f56dfc5f"
 
