@@ -20,11 +20,6 @@ resource "helm_release" "digito" {
     })
   ]
 
-  set {
-    name  = "image.version"
-    value = var.app_version
-  }
-
   lifecycle {
     prevent_destroy = true
   }

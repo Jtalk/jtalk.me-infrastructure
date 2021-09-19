@@ -55,31 +55,6 @@ resource "helm_release" "jtalk_me" {
     value = random_password.app_secret.result
   }
 
-  set {
-    name  = "image.version"
-    value = var.app_version
-  }
-
-  set {
-    name  = "ui.deployment.image.version"
-    value = var.app_version
-  }
-
-  set {
-    name  = "api.deployment.image.version"
-    value = var.app_version
-  }
-
-  set {
-    name  = "database.migration.image.version"
-    value = var.app_version
-  }
-
-  set {
-    name  = "database.backup.image.version"
-    value = var.app_version
-  }
-
   lifecycle {
     prevent_destroy = true
   }
