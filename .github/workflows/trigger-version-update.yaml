@@ -14,7 +14,8 @@ on:
         required: false
 
 env:
-  IGNORE: true
+  GIT_NAME: Github Actions Bot
+  GIT_EMAIL: github-bot@jtalk.me
 
 jobs:
   update-version:
@@ -34,8 +35,8 @@ jobs:
           sed -E -i '/^${{ github.event.inputs.name }}_version /s/"[A-Za-z0-9]+"/"${{ github.event.inputs.version }}"/' ${{ env.VERSIONS_FILE_PATH }}
       - name: Commit the updated file back
         run: |
-          git config --global user.email "github-bot@jtalk.me"
-          git config --global user.name "Github Actions Bot"
+          git config --global user.email "${{ env.GIT_EMAIL }}"
+          git config --global user.name "${{ env.GIT_NAME }}"
           git add ${{ env.VERSIONS_FILE_PATH }}
           git commit --allow-empty -m '[Workflow] Updating ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
           git push
@@ -64,3 +65,15 @@ jobs:
           wait-for-completion: true
           wait-for-completion-timeout: 10m
           wait-for-completion-interval: 30s
+      - uses: actions/checkout@v2
+        if: failure()
+        with:
+          ref: refs/heads/master
+          fetch-depth: 20 # this should be enough to stop it from deleting the repo...
+      - name: Rollback on fail
+        if: failure()
+        run: |
+          git config --global user.email "${{ env.GIT_EMAIL }}"
+          git config --global user.name "${{ env.GIT_NAME }}"
+          git revert --no-edit ${{ needs['update-version'].outputs.sha }}
+          git push
