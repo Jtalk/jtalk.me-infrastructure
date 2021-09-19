@@ -21,12 +21,7 @@ resource "helm_release" "digito" {
   ]
 
   set {
-    name  = "ui.deployment.image.version"
-    value = var.app_version
-  }
-
-  set {
-    name  = "api.deployment.image.version"
+    name  = "image.version"
     value = var.app_version
   }
 

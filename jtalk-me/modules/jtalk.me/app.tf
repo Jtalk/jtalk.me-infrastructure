@@ -56,6 +56,11 @@ resource "helm_release" "jtalk_me" {
   }
 
   set {
+    name  = "image.version"
+    value = var.app_version
+  }
+
+  set {
     name  = "ui.deployment.image.version"
     value = var.app_version
   }
