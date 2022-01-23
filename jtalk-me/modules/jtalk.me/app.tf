@@ -52,7 +52,12 @@ resource "helm_release" "jtalk_me" {
 
   set_sensitive {
     name  = "api.encryption.secret"
-    value = random_password.app_secret.result
+    value = base64encode(random_password.app_secret.result)
+  }
+
+  set_sensitive {
+    name  = "api.session.secret"
+    value = base64encode(random_password.app_secret.result)
   }
 
   lifecycle {
