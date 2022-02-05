@@ -17,7 +17,7 @@ resource "digitalocean_kubernetes_cluster" "main_cluster" {
     name       = "pool-large"
     size       = "s-2vcpu-4gb"
     auto_scale = false
-    node_count = 2
+    node_count = 1
   }
 
   maintenance_policy {
