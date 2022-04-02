@@ -128,11 +128,3 @@ resource "cloudflare_record" "dmarc" {
   type    = "TXT"
   value   = "v=DMARC1; p=quarantine; rua=mailto:me+dmarc-rua@${cloudflare_zone.root.zone}; ruf=mailto:me+dmarc-ruf@${cloudflare_zone.root.zone}; fo=1; adkim=s; aspf=s"
 }
-
-resource "cloudflare_record" "smtp_tls_rpt" {
-  count   = var.email_enabled ? 1 : 0
-  zone_id = cloudflare_zone.root.id
-  name    = "_smtp._tls"
-  type    = "TXT"
-  value   = "v=TLSRPTv1; rua=mailto:me+smtp-tls-rpt@${cloudflare_zone.root.zone}"
-}
