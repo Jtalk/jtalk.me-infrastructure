@@ -9,31 +9,22 @@ variable "root_ipv6" {
   default     = ""
 }
 
-variable "root_domain" {
+variable "cloud_cname" {
   type        = string
-  description = "The domain to set up DNS for"
+  description = "CNAME target for the Cloud instance. Only CNAME cloud is supported"
 }
 
-variable "cloud_ipv4" {
-  type        = string
-  description = "The IP v4 of the private cloud instance"
-  default     = ""
+variable "app_domains" {
+  type        = set(string)
+  description = "Domains to set up for Apps (facing K8s)"
 }
 
-variable "cloud_ipv6" {
-  type        = string
-  description = "The IP v6 of the private cloud instance"
-  default     = ""
+variable "email_domains" {
+  type        = set(string)
+  description = "Domains to set up for Email (MX, SPF, etc)"
 }
 
-variable "apps_enabled" {
-  type        = bool
-  description = "Add application-specific domains to this zone (e.g. staging)"
-  default     = false
-}
-
-variable "email_enabled" {
-  type        = bool
-  description = "Add MX and the relevant entries to the domain records"
-  default     = false
+variable "cloud_domains" {
+  type        = set(string)
+  description = "Domains to set up for Cloud (File Storage)"
 }

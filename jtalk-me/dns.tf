@@ -1,17 +1,10 @@
 module "dns" {
-  for_each      = toset(var.domains)
-  source        = "./modules/dns"
-  root_ipv4     = local.cluster_ip
-  root_domain   = each.key
-  cloud_ipv4    = var.cloud_ipv4
-  cloud_ipv6    = var.cloud_ipv6
-  apps_enabled  = true
-  email_enabled = true
-}
+  source = "./modules/dns"
 
-module "dns_cloud" {
-  source      = "./modules/dns"
-  root_ipv4   = var.cloud_ipv4
-  root_ipv6   = var.cloud_ipv6
-  root_domain = var.cloud_domain
+  app_domains   = var.app_domains
+  cloud_domains = var.cloud_domains
+  email_domains = var.email_domains
+
+  root_ipv4   = local.cluster_ip
+  cloud_cname = var.cloud_cname
 }

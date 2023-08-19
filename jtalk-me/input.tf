@@ -3,22 +3,23 @@ variable "atlas_org_id" {
   description = "ID of the existing MongoDB Atlas organisation"
 }
 
-variable "domains" {
-  type        = list(string)
-  description = "Domains to set up DNS for"
+variable "app_domains" {
+  type        = set(string)
+  description = "Domains used for Apps (K8s)"
 }
 
-variable "cloud_domain" {
-  type        = string
-  description = "Domain to deploy Nextcloud to"
+variable "cloud_domains" {
+  type        = set(string)
+  description = "Domains used for Cloud (File Storage)"
 }
 
-variable "cloud_ipv4" {
-  description = "An IPv4 address of the cloud instance (not managed by terraform)"
+variable "email_domains" {
+  type        = set(string)
+  description = "Domains used for Email"
 }
 
-variable "cloud_ipv6" {
-  description = "An IPv6 address of the cloud instance (not managed by terraform)"
+variable "cloud_cname" {
+  description = "CNAME target to set up for the Cloud instance"
 }
 
 variable "acme_email" {
@@ -26,6 +27,7 @@ variable "acme_email" {
 }
 
 variable "acme_key_base64" {
+  sensitive   = true
   description = "The secret key used for domain signing requests with Letsencrypt"
 }
 
