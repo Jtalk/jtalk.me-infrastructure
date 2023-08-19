@@ -27,7 +27,7 @@ jobs:
     outputs:
       sha: ${{ steps.store.outputs.sha }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: refs/heads/master
       - name: Update the file
@@ -45,7 +45,7 @@ jobs:
         run: |
           export SHA=$(git rev-parse HEAD)
           echo "Created new commit $SHA"
-          echo "::set-output name=sha::$SHA"
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
 
   wait-deploy:
     name: Wait for the deploy pipeline to complete
@@ -65,7 +65,7 @@ jobs:
           wait-for-completion: true
           wait-for-completion-timeout: 10m
           wait-for-completion-interval: 30s
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         if: failure()
         with:
           ref: refs/heads/master
