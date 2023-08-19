@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - ".github/workflows/deploy.yaml"
+      - ".github/workflows/deploy-infra.yaml"
       - "jtalk-me/**"
   workflow_dispatch:
 
