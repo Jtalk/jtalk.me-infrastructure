@@ -23,7 +23,6 @@ resource "mongodbatlas_cluster" "main_mongodb" {
     prevent_destroy = true
     ignore_changes = [
       mongo_db_major_version,
-      state_name,
     ]
   }
 }

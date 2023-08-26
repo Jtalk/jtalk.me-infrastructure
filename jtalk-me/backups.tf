@@ -2,23 +2,42 @@ resource "aws_s3_bucket" "jtalkme_backup" {
   provider = aws.aws_backups
 
   bucket = "jtalk.me-backup"
-  acl    = "private"
-
-  lifecycle_rule {
-    id      = "live-backup"
-    prefix  = "live"
-    enabled = true
-
-    abort_incomplete_multipart_upload_days = 1
-
-    expiration {
-      days = 60
-    }
-  }
 
   lifecycle {
     prevent_destroy = true
   }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "jtalkme_backup" {
+  provider = aws.aws_backups
+
+  bucket = aws_s3_bucket.jtalkme_backup.id
+
+  rule {
+    id = "live-backup"
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 1
+    }
+
+    expiration {
+      days                         = 60
+      expired_object_delete_marker = false
+    }
+
+    filter {
+      prefix = "live"
+    }
+
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_acl" "jtalkme_backup" {
+  provider = aws.aws_backups
+
+  bucket = aws_s3_bucket.jtalkme_backup.id
+  acl    = "private"
 }
 
 resource "aws_iam_user" "jtalkme_backup" {

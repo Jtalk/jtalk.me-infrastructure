@@ -9,7 +9,6 @@ resource "digitalocean_kubernetes_cluster" "main_cluster" {
     prevent_destroy = true
     ignore_changes = [
       version,
-      updated_at
     ]
   }
 
