@@ -2,7 +2,7 @@ resource "cloudflare_record" "caa" {
   zone_id = var.zone_id
   name    = var.root_domain
   type    = "CAA"
-  data = {
+  data {
     flags = "0"
     value = "letsencrypt.org"
     tag   = "issue"

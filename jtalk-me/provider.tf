@@ -2,31 +2,31 @@ terraform {
   required_providers {
     digitalocean = {
       source  = "digitalocean/digitalocean"
-      version = "~> 2.0"
+      version = "~> 2.29"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.27"
+      version = "~> 5.14"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.4"
+      version = "~> 2.23"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 2.2"
+      version = "~> 2.11"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 2.0"
+      version = "~> 4.13"
     }
     mongodbatlas = {
       source  = "mongodb/mongodbatlas"
-      version = "~> 1.0"
+      version = "~> 1.11"
     }
     random = {
       source  = "hashicorp/random"
-      version = "~> 3.1"
+      version = "~> 3.5"
     }
   }
 
@@ -36,7 +36,7 @@ terraform {
     region = "eu-west-2"
   }
 
-  required_version = ">= 1.0.4"
+  required_version = ">= 1.5.6"
 }
 
 provider "aws" {
@@ -84,11 +84,9 @@ provider "kubernetes" {
   }
 }
 
-variable "cloudflare_account_id" {}
 variable "cloudflare_api_token" {}
 provider "cloudflare" {
-  account_id = var.cloudflare_account_id
-  api_token  = var.cloudflare_api_token
+  api_token = var.cloudflare_api_token
 }
 
 variable "atlas_key" {}

@@ -1,8 +1,9 @@
 resource "cloudflare_zone" "root" {
-  zone   = var.root_domain
-  paused = false
-  plan   = "free"
-  type   = "full"
+  account_id = var.cloudflare_account_id
+  zone       = var.root_domain
+  paused     = false
+  plan       = "free"
+  type       = "full"
 }
 
 resource "cloudflare_zone_settings_override" "settings" {

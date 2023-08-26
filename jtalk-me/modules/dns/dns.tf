@@ -6,6 +6,8 @@ module "dns_zone" {
   for_each    = local.all_domains
   source      = "./modules/dns-zone"
   root_domain = each.key
+
+  cloudflare_account_id = var.cloudflare_account_id
 }
 
 module "apps_dns" {

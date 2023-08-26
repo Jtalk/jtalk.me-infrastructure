@@ -3,6 +3,11 @@ variable "atlas_org_id" {
   description = "ID of the existing MongoDB Atlas organisation"
 }
 
+variable "cloudflare_account_id" {
+  type        = string
+  description = "Account ID to create the DNS Zone in"
+}
+
 variable "app_domains" {
   type        = set(string)
   description = "Domains used for Apps (K8s)"

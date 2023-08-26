@@ -1,3 +1,8 @@
+variable "cloudflare_account_id" {
+  type        = string
+  description = "Account ID to create the Zone in"
+}
+
 variable "root_ipv4" {
   type        = string
   description = "IP of the cluster to set up DNS for"
