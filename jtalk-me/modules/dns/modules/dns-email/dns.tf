@@ -33,5 +33,5 @@ resource "cloudflare_record" "dmarc" {
   zone_id = var.zone_id
   name    = "_dmarc"
   type    = "TXT"
-  value   = "v=DMARC1; p=quarantine; rua=mailto:me+dmarc-rua@${var.root_domain}; ruf=mailto:me+dmarc-ruf@${var.root_domain}; fo=1; adkim=s; aspf=s"
+  value   = "v=DMARC1; p=quarantine; ruf=mailto:me+dmarc-ruf@${var.root_domain}; fo=1; adkim=s; aspf=s"
 }
